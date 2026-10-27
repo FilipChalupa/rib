@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<title>Ikona</title>
+<style>html,body{margin:0;background:transparent}canvas{display:block}</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+// App icon: one glazed rib with a chef's knife over it. ?size=512&maskable=1 (maskable keeps the motif in the safe 80 % circle)
+const q = new URLSearchParams(location.search), size = +q.get('size') || 512, maskable = q.has('maskable');
+const c = document.getElementById('c'), ctx = c.getContext('2d');
+c.width = c.height = size;
+const k = size / 512;
+ctx.scale(k, k);
+// background: butcher red with a white awning stripe pattern at the top and a cream plate
+ctx.save();
+ctx.beginPath(); maskable ? ctx.rect(0, 0, 512, 512) : ctx.roundRect(0, 0, 512, 512, 110); ctx.clip();
+ctx.fillStyle = '#c8102e'; ctx.fillRect(0, 0, 512, 512);
+ctx.fillStyle = 'rgba(255,248,236,.14)'; for (let x = -512; x < 512; x += 64) { ctx.beginPath(); ctx.moveTo(x, 512); ctx.lineTo(x + 32, 512); ctx.lineTo(x + 544, 0); ctx.lineTo(x + 512, 0); ctx.closePath(); ctx.fill(); }
+ctx.restore();
+ctx.fillStyle = '#2a1614'; ctx.beginPath(); ctx.arc(262, 266, 196, 0, 7); ctx.fill();
+ctx.fillStyle = '#fff8ec'; ctx.beginPath(); ctx.arc(256, 258, 196, 0, 7); ctx.fill();
+ctx.strokeStyle = '#7cc6b4'; ctx.lineWidth = 14; ctx.beginPath(); ctx.arc(256, 258, 168, 0, 7); ctx.stroke();
+const s = maskable ? 0.74 : 0.84;
+ctx.translate(256, 256); ctx.scale(s, s); ctx.translate(-256, -256);
+// rib: meat with a bone sticking out at both ends
+ctx.save(); ctx.translate(228, 270); ctx.rotate(-0.5);
+ctx.fillStyle = 'rgba(0,0,0,.3)'; ctx.beginPath(); ctx.roundRect(-78, -150, 170, 310, 30); ctx.fill();
+for (const y of [-190, 150]) {
+  ctx.fillStyle = '#efe1c2'; ctx.strokeStyle = '#a88a62'; ctx.lineWidth = 6;
+  ctx.beginPath(); ctx.roundRect(-24, y, 48, 46, 22); ctx.fill(); ctx.stroke();
+}
+ctx.lineJoin = 'round'; ctx.lineWidth = 18; ctx.strokeStyle = '#4a1407';
+ctx.beginPath(); ctx.roundRect(-86, -160, 172, 320, 26); ctx.stroke();
+const g = ctx.createLinearGradient(0, -160, 0, 160);
+g.addColorStop(0, '#8a2c12'); g.addColorStop(0.35, '#a6421b'); g.addColorStop(1, '#6b1e0b');
+ctx.fillStyle = g; ctx.fill();
+ctx.save(); ctx.clip();
+ctx.strokeStyle = 'rgba(255,170,120,.3)'; ctx.lineWidth = 50; ctx.beginPath(); ctx.moveTo(0, -160); ctx.lineTo(0, 160); ctx.stroke();
+ctx.strokeStyle = 'rgba(255,225,185,.28)'; ctx.lineWidth = 18; ctx.stroke();
+ctx.strokeStyle = 'rgba(35,8,2,.3)'; ctx.lineWidth = 22;
+for (let x = -260; x < 200; x += 110) { ctx.beginPath(); ctx.moveTo(x, -160); ctx.lineTo(x + 240, 160); ctx.stroke(); }
+ctx.restore(); ctx.restore();
+// knife across the rib
+ctx.save(); ctx.translate(330, 370); ctx.rotate(0.35); ctx.scale(0.78, 0.78);
+ctx.fillStyle = 'rgba(0,0,0,.28)'; ctx.beginPath(); ctx.moveTo(18, 20); ctx.lineTo(50, -250); ctx.lineTo(0, -250); ctx.closePath(); ctx.fill();
+const bl = ctx.createLinearGradient(-36, 0, 26, 0);
+bl.addColorStop(0, '#f4f7f9'); bl.addColorStop(0.55, '#b9c2c9'); bl.addColorStop(1, '#8a949c');
+ctx.fillStyle = bl; ctx.strokeStyle = '#6f7880'; ctx.lineWidth = 4;
+ctx.beginPath(); ctx.moveTo(0, 0); ctx.quadraticCurveTo(-36, -100, -36, -260); ctx.lineTo(26, -260); ctx.lineTo(26, -76); ctx.quadraticCurveTo(18, -24, 0, 0); ctx.closePath(); ctx.fill(); ctx.stroke();
+ctx.fillStyle = '#9aa3ab'; ctx.beginPath(); ctx.roundRect(-40, -282, 70, 24, 8); ctx.fill();
+ctx.fillStyle = '#2b2522'; ctx.beginPath(); ctx.roundRect(-31, -440, 54, 162, 18); ctx.fill();
+ctx.fillStyle = '#c9ced2'; for (const y of [-318, -360, -402]) { ctx.beginPath(); ctx.arc(-4, y, 6, 0, 7); ctx.fill(); }
+ctx.restore();
+document.title = 'ready';
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Žebírka na čas</title>
+<meta name="description" content="Rozřež plát žeber mezi kostmi co nejrychleji. A nepořež se u toho.">
+<meta name="theme-color" content="#c8102e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Žebírka">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preload" href="fonts/alfa-slab-one-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/rubik-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="overlay" data-mode="start">
+  <div class="card">
+    <div class="awning" aria-hidden="true"></div>
+    <header class="brand">
+      <p class="kicker">Řeznictví &amp; uzenářství</p>
+      <h1>Žebírka <span>na čas</span></h1>
+      <p class="sub"><span>Řež rychle. Prsty si nech.</span></p>
+    </header>
+    <p id="msg">Na prkně leží pět plátů žeber a hosté mají hlad. Rozřež je mezi kostmi na jednotlivá žebírka, co nejrychleji. Druhou rukou plát držíš a ta ruka se hýbe, tak koukej, kde má zrovna prsty. Řez do kosti stojí sekundu, řez do prstu pět sekund a náplast. Po třetí náplasti jedeš na pohotovost.</p>
+    <div id="stats"></div>
+    <form id="nameform" hidden autocomplete="off">
+      <label for="name">Jsi v top 5! Jméno na účtenku:</label>
+      <input type="text" id="name" maxlength="12" placeholder="Anonym" enterkeyhint="done">
+      <button type="submit" id="savescore">Uložit</button>
+    </form>
+    <div class="actions">
+      <button id="btn">Začít krájet</button>
+      <button id="install" hidden>Nainstalovat hru</button>
+    </div>
+    <table id="scores" hidden><caption>Účtenka · nejrychlejší řezníci</caption><tbody></tbody></table>
+    <div id="volumes"><label for="volsfx">Hlasitost <input type="range" id="volsfx" min="0" max="100" step="5"></label></div>
+    <p class="hint" id="hint">Myš: drž tlačítko a táhni přes celý plát mezi kostmi &middot; P = pauza &middot; M = zvuk</p>
+    <p class="hint" id="touchhint">Dotyk: táhni prstem přes celý plát mezi kostmi. Klikatě tam a zpátky nakrájíš víc žebírek jedním tahem.</p>
+    <p class="hint" id="ioshint" hidden>Na iPhonu: Sdílet → Přidat na plochu, hra pak běží na celou obrazovku i offline.</p>
+  </div>
+</div>
+<div id="toast" role="status" hidden><span id="toastmsg">Je k dispozici nová verze.</span><button id="toastbtn">Obnovit</button></div>
+<div id="safe"></div>
+<div id="controls">
+  <button class="ctl" id="pause" title="Pauza (P)" hidden>Pauza</button>
+  <button class="ctl" id="mute" title="Zvuk (M)">Zvuk</button>
+</div>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
